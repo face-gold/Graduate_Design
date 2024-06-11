@@ -1,0 +1,10 @@
+scikit-learn
+xgboost 
+scipy 
+pandas
+seaborn
+Boruta
+flask
+Flask-Bootstrap
+topsispy
+zat
