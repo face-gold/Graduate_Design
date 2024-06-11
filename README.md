@@ -10,7 +10,16 @@
 本项目是基于Flask和bootstrap进行开发，是一个简单的可视化任务。<br>
 运行项目：终端中进入项目的文件夹，执行指令“python app.py”。
 ### 基础功能展示
-
+#### 主页
+![image](https://github.com/face-gold/Graduate_Design/blob/main/images/image-20240530140503115.png)
+#### 上传文件
+![image](https://github.com/face-gold/Graduate_Design/blob/main/images/image-20240530140532240.png)
+#### 解析文件
+![image](https://github.com/face-gold/Graduate_Design/blob/main/images/image-20240530140602240.png)
+#### 解析结果
+![image](https://github.com/face-gold/Graduate_Design/blob/main/images/image-20240530140622546.png)
+#### 实验数据展示
+![image](https://github.com/face-gold/Graduate_Design/blob/main/images/image-20240530141656822.png)
 ### 注意
 本项目的可视化任务目的是为了毕业答辩时更好地展示本人的论文实现框架。<br>
 运行指令后进入web页面，在进入CTU-13或者是DOH模块时，其执行的顺序应该是：<br>
