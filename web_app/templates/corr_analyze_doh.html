@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>加密恶意流量检测系统</title>
+    <!--图标显示-->
+    <link rel="icon" href="../static/imgs/icon.svg" type="image/x-icon" />
+    <link rel="shortcut icon" href="../static/imgs/icon.svg" type="image/x-icon" />
+    <!--注意下面的引入顺序不要改变-->
+    <!--上面是国外源，下面是国内源-->
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <!-- 引入 jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!-- 引入 Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <!--数据可视化-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <style>
+        .carousel-inner .item img {
+            max-height: 400px; 
+            width: auto;
+            margin: 0 auto; 
+        }
+    </style>
+    <body>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="carousel slide" id="carousel-235440">
+                        <ol class="carousel-indicators">
+                            <li class="active" data-slide-to="0" data-target="#carousel-235440">
+                            </li>
+                            <li data-slide-to="1" data-target="#carousel-235440">
+                            </li>
+                            <li data-slide-to="2" data-target="#carousel-235440">
+                            </li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p1.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item active">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p4.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p7.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        </div> <a class="left carousel-control" href="#carousel-235440" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-235440" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                     <a href="http://127.0.0.1:5000/show_data_DOH">数据展示</a>
+                                </li>
+                                <li class="active">
+                                    <a href="http://127.0.0.1:5000/corr_analysis_DOH">相关性分析</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/Boruta_ML_DOH">Boruta特征选择</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/feature_lighting_DOH">特征轻量化</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/">返回主页</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                     <a href="http://127.0.0.1:5000/teacher">教师祝语</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/student">学生祝语</a>
+                               </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="jumbotron">
+                        <h1>
+                            Hi Data!
+                        </h1>
+                        <p>
+                            This is the corr_analyze page of DOH!
+                        </p>
+                        <!--<p>
+                             <a class="btn btn-primary btn-large" href="#">开启体验之旅</a>
+                        </p>-->
+                        
+                        <h2>相关性分析</h2>
+                        <img src="{{ url_for('static', filename='imgs/doh_corr_heatmap.png') }}" alt="Heatmap" width="1050"/>
+                        <h2>保留的特征</h2>
+                        <u1>
+                            {% for feature in features %}
+                                <li style="font-size: 20px;">{{ feature }}</li>
+                            {% endfor %}
+                        </u1>
+                        <h2>共保留{{ features | length }}个特征</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+  </head>  
+</html>

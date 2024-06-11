@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>加密恶意流量检测系统</title>
+    <!--图标显示-->
+    <link rel="icon" href="../static/imgs/icon.svg" type="image/x-icon" />
+    <link rel="shortcut icon" href="../static/imgs/icon.svg" type="image/x-icon" />
+    <!--注意下面的引入顺序不要改变-->
+    <!--上面是国外源，下面是国内源-->
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <!-- 引入 jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!-- 引入 Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <!--模型表现可视化-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <style>
+        .carousel-inner .item img {
+            max-height: 400px;  
+            width: auto;
+            margin: 0 auto;  
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            // 解析 JSON 数据
+            var model_result = JSON.parse('{{ model_result | safe }}');
+        
+            // 创建表格
+            var table = '<table style="border-collapse: collapse; width: 100%;">';
+            table += '<tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>F1</th><th>AUC</th><th>TPR</th><th>FPR</th><th>Run Time</th></tr>';
+            for (var i = 0; i < model_result.length; i++) {
+                table += '<tr><td style="border: 1px solid black;">' + model_result[i].model + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].accuracy).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].precision).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].f1).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].auc).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].TPR).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].FPR).toFixed(6) + '</td>';
+                table += '<td style="border: 1px solid black;">' + parseFloat(model_result[i].run_time).toFixed(6) + '</td></tr>';
+            }
+            table += '</table>';
+            $('#table-container').html(table);
+        
+            Highcharts.setOptions({
+                accessibility: {
+                    enabled: false
+                }
+            });
+            // 创建折线图
+            Highcharts.chart('chart-container', {
+                title: { 
+                    text: 'Model Performance' ,
+                    style: {
+                        fontSize: '20px'
+                    }
+                },
+                xAxis: { 
+                    categories: ['Accuracy', 'Precision', 'F1', 'AUC', 'TPR', 'FPR'],
+                    labels: {
+                        style: {
+                            fontSize: '15px'
+                        }
+                    }
+                },
+                yAxis: { 
+                    title: { text: 'Value',
+                    style: {
+                            fontSize: '15px'
+                        }
+                },
+                    labels: {
+                        style: {
+                            fontSize: '15px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '15px'
+                    }
+                },
+                series: model_result.map(function(item) {
+                    return {
+                        name: item.model,
+                        data: [item.accuracy, item.precision, item.f1, item.auc, item.TPR, item.FPR]
+                    };
+                })
+            });
+        });
+    </script>
+
+    <body>
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="carousel slide" id="carousel-235440">
+                        <ol class="carousel-indicators">
+                            <li class="active" data-slide-to="0" data-target="#carousel-235440">
+                            </li>
+                            <li data-slide-to="1" data-target="#carousel-235440">
+                            </li>
+                            <li data-slide-to="2" data-target="#carousel-235440">
+                            </li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p1.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p4.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img alt="" src="{{ url_for('static', filename='imgs/p7.jpg') }}" />
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        </div> <a class="left carousel-control" href="#carousel-235440" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-235440" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                     <a href="http://127.0.0.1:5000/show_data_DOH">数据展示</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/corr_analysis_DOH">相关性分析</a>
+                                </li>
+                                <li >
+                                    <a href="http://127.0.0.1:5000/Boruta_ML_DOH">Boruta特征选择</a>
+                                </li>
+                                <li class="active">
+                                    <a href="http://127.0.0.1:5000/feature_lighting_DOH">特征轻量化</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/">返回主页</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                     <a href="http://127.0.0.1:5000/teacher">教师祝语</a>
+                                </li>
+                                <li>
+                                    <a href="http://127.0.0.1:5000/student">学生祝语</a>
+                               </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="jumbotron">
+                        <h1>
+                            Hi MI&Chi2! and Feature Lightening!
+                        </h1>
+                        <p>
+                            This is the stage of feature lightening!
+                        </p>
+                        <h2>双层特征选择及特征Stacking</h2>
+                        <u1>
+                            {% for feature in features %}
+                                <li  style="font-size: 20px;">{{ feature }}</li>
+                            {% endfor %}
+                        </u1>
+                        <h2>共选出{{ features | length }}个特征</h2>
+                        <!--<p>
+                             <a class="btn btn-primary btn-large" href="#">开启体验之旅</a>
+                        </p>-->
+                        <h2>模型表现如下：</h2>
+                        <div id="table-container"></div>
+                        <div id="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+  </head>  
+</html>
